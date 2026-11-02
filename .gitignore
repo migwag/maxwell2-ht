@@ -1,0 +1,9 @@
+# Build output and compiled tools
+build/
+tools/calibrate
+tools/ht_test
+
+# Calibration recordings
+tools/*.csv
+
+.DS_Store

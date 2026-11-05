@@ -99,6 +99,8 @@ tools/run_calibration.sh
 python3 tools/analyze_calibration.py tools/calibration.csv
 ```
 
-## License
+## Licence
 
-MIT -- see [LICENSE](LICENSE).
+[MIT](LICENSE). "Audeze" and "Maxwell" are trademarks of Audeze LLC, and "Dolby" and
+"Dolby Atmos" are trademarks of Dolby Laboratories, used here only to say what hardware
+and software this works with.

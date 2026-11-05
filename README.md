@@ -91,11 +91,12 @@ tools/ht_test build/libMaxwell2HT.dylib 60 live
 
 ## Recalibrating
 
-`tools/calibrate.c` borrows the HID functions exported by Audeze's `libMaxwellHT_0.3.3.dylib`,
-so recalibrating -- unlike building or using this plugin, which need nothing from Audeze --
-requires that file in the Renderer's Head Tracking folder. Download it from
-[Audeze's Maxwell head-tracking page](https://www.audeze.com/pages/maxwell-head-tracking-dolby-atmos-renderer)
-and install it as Audeze describes there. The tool speaks cues through the headset and records
+The calibration tool needs Audeze's original plugin, `libMaxwellHT_0.3.3.dylib`, in the
+Renderer's Head Tracking folder. Download it from
+[Audeze's Maxwell head-tracking page](https://www.audeze.com/pages/maxwell-head-tracking-dolby-atmos-renderer).
+You don't need it to build or use this plugin.
+
+The tool speaks cues through the headset and records
 `tools/calibration.csv`; `tools/analyze_calibration.py` then prints the rotation axis for each movement.
 
 ```sh

@@ -98,3 +98,7 @@ clang -O1 -o tools/calibrate tools/calibrate.c
 tools/run_calibration.sh
 python3 tools/analyze_calibration.py tools/calibration.csv
 ```
+
+## License
+
+MIT -- see [LICENSE](LICENSE).

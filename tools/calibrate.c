@@ -1,4 +1,4 @@
-// Voice-cued, continuous capture of Maxwell 2 orientation quaternions (HID report 0x0A)
+// Voice-cued, continuous capture of Maxwell 2 ANC orientation quaternions (HID report 0x0A)
 // for axis calibration. Cues are spoken with `say`, so you don't need to watch the screen.
 // Usage: calibrate <hidapi-providing dylib> <out.csv>
 #include <dlfcn.h>
@@ -24,7 +24,7 @@ int main(int argc, char **argv) {
   void *d = 0;
   for (struct hid_device_info *i = enumerate(0x3329, 0x4baa); i; i = i->next)
     if (i->usage_page == 0xff13 && i->usage == 1) d = open_path(i->path);
-  if (!d) { printf("Maxwell 2 not found\n"); return 1; }
+  if (!d) { printf("Maxwell 2 ANC not found\n"); return 1; }
 
   unsigned char en[62] = {0x06, 0x09, 0x00, 0x05, 0x5a, 0x05, 0x00, 0x00, 0x09, 0x2e, 0x00, 0xbc};
   hwrite(d, en, sizeof en);
@@ -44,7 +44,7 @@ int main(int argc, char **argv) {
 
   FILE *out = fopen(argv[2], "w");
   fprintf(out, "t,phase,a,b,c,d\n");
-  printf("\nMaxwell 2 calibration (about 40 s). Put the headset on and follow the spoken cues.\n"
+  printf("\nMaxwell 2 ANC calibration (about 40 s). Put the headset on and follow the spoken cues.\n"
          "You don't need to look at the screen.\n\nPress Enter to start... ");
   fflush(stdout);
   for (int c; (c = getchar()) != '\n' && c != EOF;) {}

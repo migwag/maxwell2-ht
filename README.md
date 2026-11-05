@@ -1,12 +1,12 @@
-# Audeze Maxwell 2 head tracker for the Dolby Atmos Renderer
+# Audeze Maxwell 2 ANC head tracker for the Dolby Atmos Renderer
 
 Audeze's `libMaxwellHT_0.3.3.dylib` supports only the original Maxwell (USB product IDs
 `0x4B18`, `0x4B19`, `0x4B1A`, `0x4B1E`) and reads raw gyro/accel data from HID report `0x03`.
-The Maxwell 2 (product ID `0x4BAA`) fuses its IMU on the headset and streams a unit quaternion
+The Maxwell 2 ANC (product ID `0x4BAA`) fuses its IMU on the headset and streams a unit quaternion
 `(w, x, y, z)` as four little-endian floats in HID input report `0x0A`, so that plugin fails
 `headtracker_create` and the Renderer logs "Found invalid head tracker plugin".
 
-This plugin implements the Renderer's C head-tracker API for the Maxwell 2.
+This plugin implements the Renderer's C head-tracker API for the Maxwell 2 ANC.
 
 ## Protocol
 

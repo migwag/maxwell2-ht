@@ -1,6 +1,6 @@
-// Dolby Atmos Renderer head-tracker plugin for the Audeze Maxwell 2.
+// Dolby Atmos Renderer head-tracker plugin for the Audeze Maxwell 2 ANC.
 //
-// The Maxwell 2 fuses its IMU on the headset and streams a unit quaternion in
+// The Maxwell 2 ANC fuses its IMU on the headset and streams a unit quaternion in
 // HID input report 0x0A (4 little-endian floats) once sensors are enabled with
 // vendor output report 0x06. This plugin exposes the C API the Renderer loads
 // from ~/Library/Application Support/Dolby/Dolby Atmos Renderer/Head Tracking.
@@ -22,7 +22,7 @@
 #define REPORT_QUAT     0x0A
 #define SENSOR_RATE     0x3C
 
-#define PID_HEADSET     0x4BAA   // Maxwell 2 connected by USB cable
+#define PID_HEADSET     0x4BAA   // Maxwell 2 ANC connected by USB cable
 #define PID_DONGLE      0x4BA9   // Maxwell USB dongle (wireless)
 
 static const int kProductIds[] = { PID_HEADSET, PID_DONGLE };

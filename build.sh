@@ -1,5 +1,5 @@
 #!/bin/sh
-# Builds the universal, ad-hoc signed Maxwell 2 head-tracker plugin into build/.
+# Builds the universal, ad-hoc signed Maxwell 2 ANC head-tracker plugin into build/.
 set -e
 cd "$(dirname "$0")"
 mkdir -p build

@@ -8,13 +8,16 @@ The Maxwell 2 ANC (product ID `0x4BAA`) fuses its IMU on the headset and streams
 
 This plugin implements the Renderer's C head-tracker API for the Maxwell 2 ANC.
 
+It works with the headset on its USB cable or through the Maxwell USB dongle, but the dongle is
+preferred: it delivers fresh orientation data more consistently, while the cable connection
+repeats stale samples more often, which makes tracking less smooth.
+
 ## Disclaimer
 
 This is an independent, unofficial project. It is **not affiliated with, endorsed by, or
 supported by Audeze LLC**. "Audeze", "Maxwell" and "Maxwell 2 ANC" are used only to identify
 the hardware this plugin works with. The headset's head-tracking protocol was reverse
-engineered for interoperability. Use it at your own risk; for support with the headset
-itself, contact Audeze, but do not ask them about this plugin.
+engineered for interoperability. Use it at your own risk.
 
 ## Protocol
 

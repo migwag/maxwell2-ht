@@ -22,7 +22,10 @@
 #define REPORT_QUAT     0x0A
 #define SENSOR_RATE     0x3C
 
-static const int kProductIds[] = { 0x4BAA };
+#define PID_HEADSET     0x4BAA   // Maxwell 2 connected by USB cable
+#define PID_DONGLE      0x4BA9   // Maxwell USB dongle (wireless)
+
+static const int kProductIds[] = { PID_HEADSET, PID_DONGLE };
 
 enum { ERR_OK = 0, ERR_NO_DEVICE = 1, ERR_NO_DATA = 2, ERR_INTERNAL = 3 };
 
@@ -75,8 +78,17 @@ static void quat_mul(const float a[4], const float b[4], float r[4]) {
   r[3] = a[0]*b[3] + a[1]*b[2] - a[2]*b[1] + a[3]*b[0];
 }
 
+// Commands sent through the USB dongle need the 0x80 routing flag to reach the headset;
+// without it the dongle acknowledges them but the headset's sensor stream is unaffected.
+static uint8_t route_flag(IOHIDDeviceRef dev) {
+  int pid = 0;
+  CFNumberRef n = IOHIDDeviceGetProperty(dev, CFSTR(kIOHIDProductIDKey));
+  if (n) CFNumberGetValue(n, kCFNumberIntType, &pid);
+  return pid == PID_DONGLE ? 0x80 : 0x00;
+}
+
 static void send_enable(IOHIDDeviceRef dev, bool on) {
-  uint8_t cmd[62] = { REPORT_ENABLE, 0x09, 0x00, 0x05, 0x5A, 0x05, 0x00, 0x00, 0x09, 0x2E, 0x00,
+  uint8_t cmd[62] = { REPORT_ENABLE, 0x09, route_flag(dev), 0x05, 0x5A, 0x05, 0x00, 0x00, 0x09, 0x2E, 0x00,
                       (uint8_t)(SENSOR_RATE | (on ? 0x80 : 0x00)) };
   IOHIDDeviceSetReport(dev, kIOHIDReportTypeOutput, REPORT_ENABLE, cmd, sizeof cmd);
 }
@@ -108,7 +120,7 @@ static void on_report(void *ctx, IOReturn res, void *sender, IOHIDReportType typ
 static void attach(tracker *t, IOHIDDeviceRef dev) {
   if (t->device) return;
   IOReturn r = IOHIDDeviceOpen(dev, kIOHIDOptionsTypeNone);
-  dbg(t, "device matched, IOHIDDeviceOpen -> 0x%x", r);
+  dbg(t, "device matched (route flag 0x%02x), IOHIDDeviceOpen -> 0x%x", route_flag(dev), r);
   if (r != kIOReturnSuccess) return;
   CFRetain(dev);
   t->device = dev;

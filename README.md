@@ -10,10 +10,13 @@ This plugin implements the Renderer's C head-tracker API for the Maxwell 2.
 
 ## Protocol
 
-- Interface: vendor `0x3329`, product `0x4BAA`, HID usage page `0xFF13`, usage `1`.
-- Enable sensors: output report `06 09 00 05 5A 05 00 00 09 2E 00 BC` (62 bytes, zero padded).
-  Last byte is `0x80 | rate`; send `0x3C` to disable.
-- Data: input report `0A` + 4 x float32 LE quaternion, about 60 Hz.
+- Interface: vendor `0x3329`, HID usage page `0xFF13`, usage `1`, product
+  `0x4BAA` (headset over USB cable) or `0x4BA9` ("Audeze Maxwell Dongle", wireless).
+- Enable sensors: output report `06 09 RR 05 5A 05 00 00 09 2E 00 BC` (62 bytes, zero padded).
+  Last byte is `0x80 | rate`; send `0x3C` to disable. `RR` is the routing flag: `00` for the
+  headset over USB, `80` through the dongle (the dongle acks an unflagged command but the
+  headset ignores it).
+- Data: input report `0A` + 4 x float32 LE quaternion, about 60 Hz over both the cable and the dongle.
 - The headset's frame matches the Renderer's (x forward, y left, z up); see `tools/calibrate.c`.
 
 ## Renderer host behaviour (learned the hard way)

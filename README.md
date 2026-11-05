@@ -1,6 +1,8 @@
 # Audeze Maxwell 2 ANC head tracker for the Dolby Atmos Renderer
 
-Audeze's `libMaxwellHT_0.3.3.dylib` supports only the original Maxwell (USB product IDs
+Audeze's own head-tracking plugin for the Renderer, `libMaxwellHT_0.3.3.dylib`
+([download from Audeze](https://www.audeze.com/pages/maxwell-head-tracking-dolby-atmos-renderer)),
+supports only the original Maxwell (USB product IDs
 `0x4B18`, `0x4B19`, `0x4B1A`, `0x4B1E`) and reads raw gyro/accel data from HID report `0x03`.
 The Maxwell 2 ANC (product ID `0x4BAA`) fuses its IMU on the headset and streams a unit quaternion
 `(w, x, y, z)` as four little-endian floats in HID input report `0x0A`, so that plugin fails
@@ -89,8 +91,11 @@ tools/ht_test build/libMaxwell2HT.dylib 60 live
 
 ## Recalibrating
 
-`tools/calibrate.c` borrows the HID functions exported by Audeze's `libMaxwellHT_0.3.3.dylib`
-(it must still be in the Head Tracking folder). It speaks cues through the headset and records
+`tools/calibrate.c` borrows the HID functions exported by Audeze's `libMaxwellHT_0.3.3.dylib`,
+so recalibrating -- unlike building or using this plugin, which need nothing from Audeze --
+requires that file in the Renderer's Head Tracking folder. Download it from
+[Audeze's Maxwell head-tracking page](https://www.audeze.com/pages/maxwell-head-tracking-dolby-atmos-renderer)
+and install it as Audeze describes there. The tool speaks cues through the headset and records
 `tools/calibration.csv`; `tools/analyze_calibration.py` then prints the rotation axis for each movement.
 
 ```sh

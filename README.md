@@ -35,7 +35,7 @@ This plugin implements the Renderer's C head-tracker API for the Maxwell 2 ANC.
 cp build/libMaxwell2HT.dylib "$HOME/Library/Application Support/Dolby/Dolby Atmos Renderer/Head Tracking/"
 ```
 
-Restart the Renderer and pick "Audeze Maxwell 2 head tracker" in the head-tracking settings.
+Restart the Renderer and pick "Audeze Maxwell 2 ANC head tracker" in the head-tracking settings.
 
 ## Test without the Renderer
 

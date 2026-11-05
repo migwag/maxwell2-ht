@@ -210,8 +210,8 @@ static void track(tracker *t) {
 __attribute__((visibility("default")))
 void headtracker_describe(headtracker_description *d) {
   dbg(NULL, "describe");
-  d->name = "Audeze Maxwell 2 head tracker";
-  d->developer = "Community plugin (Maxwell 2 HID report 0x0A)";
+  d->name = "Audeze Maxwell 2 ANC head tracker";
+  d->developer = "Community plugin (Maxwell 2 ANC HID report 0x0A)";
 }
 
 __attribute__((visibility("default")))
@@ -344,7 +344,7 @@ const char *headtracker_get_error_string(void *h, int code) {
   dbg(h, "get_error_string(%d)", code);
   switch (code) {
     case ERR_OK: return "ok";
-    case ERR_NO_DEVICE: return "Audeze Maxwell 2 not connected";
+    case ERR_NO_DEVICE: return "Audeze Maxwell 2 ANC not connected";
     case ERR_NO_DATA: return "no head-tracking data from headset";
     case ERR_INTERNAL: return "internal error";
     default: return "unknown error code";
